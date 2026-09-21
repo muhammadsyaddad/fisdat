@@ -1,0 +1,26 @@
+[project]
+name = "laprak"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { email = "muhamsyaddad@gmail.com" }
+]
+requires-python = ">=3.12"
+dependencies = [
+    "markdown>=3.10.3",
+    "numpy>=2.5.3",
+    "pandas>=3.0.6",
+    "tabulate>=0.10.0",
+    "weasyprint>=70.0",
+]
+
+[project.scripts]
+laprak = "laprak:main"
+
+[build-system]
+requires = ["uv_build>=0.12.5,<0.13.0"]
+build-backend = "uv_build"
+
+[tool.uv]
+package = false
