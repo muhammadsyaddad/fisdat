@@ -62,10 +62,23 @@ DATASET_SOAL_3 = {
     ],
 }
 
+# data quiz
+DATASET_SOAL_QUIZZ = {
+    "material": "CsCl",
+    "lambda": 1.5405,  # CuKa1
+    "data_puncak_quizz": [
+        {"2theta": 22, "h": 2, "k": 1, "l": 1},
+        {"2theta": 24, "h": 2, "k": 2, "l": 0},
+        {"2theta": 29, "h": 2, "k": 2, "l": 2},
+        {"2theta": 33, "h": 1, "k": 2, "l": 3},
+        {"2theta": 34, "h": 4, "k": 0, "l": 0},
+    ],
+}
+
 data_puncak_1 = DATASET_SOAL_1["data_puncak_1"]
 data_puncak_2 = DATASET_SOAL_2["data_puncak_2"]
 data_puncak_3 = DATASET_SOAL_3["data_puncak_3"]
-
+data_puncak_quizz = DATASET_SOAL_QUIZZ["data_puncak_quizz"]
 
 
 def calculate_lattice_parameters(data_puncak: list, wavelength: float) -> pd.DataFrame:
@@ -95,7 +108,6 @@ def display_results(material_name: str, df_result: pd.DataFrame) -> None:
     print(f"ANALISIS KISI STRUKTUR KUBUS: {material_name}")
     print(f"{'=' * 65}")
 
-    # Formating
     formatted_df = df_result.copy()
     formatted_df["2theta"] = formatted_df["2theta"].apply(lambda x: f"{x:.3f}°")
     formatted_df["d (Å)"] = formatted_df["d (Å)"].apply(lambda x: f"{x:.4f}")
@@ -152,6 +164,7 @@ def main():
         (DATASET_SOAL_1, "data_puncak_1"),
         (DATASET_SOAL_2, "data_puncak_2"),
         (DATASET_SOAL_3, "data_puncak_3"),
+        (DATASET_SOAL_QUIZZ, "data_puncak_quizz"),
     ]
 
     laporan_md = "# Laporan Analisis Parameter Kisi XRD (Struktur Kubus)\n\n"
