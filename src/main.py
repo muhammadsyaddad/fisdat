@@ -1,10 +1,6 @@
 import numpy as np
 import pandas as pd
 
-# ==========================================
-# 1. Dataset Soal 1, 2, dan 3
-# ==========================================
-
 # Soal 1: CsCl (10 Puncak Pertama)
 DATASET_SOAL_1 = {
     "material": "CsCl",
@@ -66,31 +62,25 @@ DATASET_SOAL_3 = {
     ],
 }
 
-# Alias variabel langsung jika ingin diakses individual
 data_puncak_1 = DATASET_SOAL_1["data_puncak_1"]
 data_puncak_2 = DATASET_SOAL_2["data_puncak_2"]
 data_puncak_3 = DATASET_SOAL_3["data_puncak_3"]
 
-
-# ==========================================
-# 2. Fungsi Logika Perhitungan & Pelaporan
-# ==========================================
 
 
 def calculate_lattice_parameters(data_puncak: list, wavelength: float) -> pd.DataFrame:
     """Menghitung nilai d-spacing dan parameter kisi a untuk kisi kubus."""
     df = pd.DataFrame(data_puncak)
 
-    # Menghitung theta dalam radian (2theta / 2)
     theta_rad = np.radians(df["2theta"] / 2.0)
 
-    # Menghitung sum of squares: h^2 + k^2 + l^2
+    # sum of squares: h^2 + k^2 + l^2
     h2_k2_l2 = df["h"] ** 2 + df["k"] ** 2 + df["l"] ** 2
 
-    # Hukum Bragg: d = lambda / (2 * sin(theta))
+    #  Bragg: d = lambda / (2 * sin(theta))
     df["d (Å)"] = wavelength / (2.0 * np.sin(theta_rad))
 
-    # Hubungan kisi kubus: a = d * sqrt(h^2 + k^2 + l^2)
+    # kisi kubus: a = d * sqrt(h^2 + k^2 + l^2)
     df["a (Å)"] = df["d (Å)"] * np.sqrt(h2_k2_l2)
 
     return df
@@ -105,7 +95,7 @@ def display_results(material_name: str, df_result: pd.DataFrame) -> None:
     print(f"ANALISIS KISI STRUKTUR KUBUS: {material_name}")
     print(f"{'=' * 65}")
 
-    # Format desimal agar tampilan rapi
+    # Formating
     formatted_df = df_result.copy()
     formatted_df["2theta"] = formatted_df["2theta"].apply(lambda x: f"{x:.3f}°")
     formatted_df["d (Å)"] = formatted_df["d (Å)"].apply(lambda x: f"{x:.4f}")
@@ -158,29 +148,23 @@ def export_to_markdown(material_name: str, df_result: pd.DataFrame) -> str:
 
 
 def main():
-    # Daftar dataset yang akan diproses secara berurutan
     daftar_tugas = [
         (DATASET_SOAL_1, "data_puncak_1"),
         (DATASET_SOAL_2, "data_puncak_2"),
         (DATASET_SOAL_3, "data_puncak_3"),
     ]
 
-    # Inisialisasi judul/header dokumen Markdown
     laporan_md = "# Laporan Analisis Parameter Kisi XRD (Struktur Kubus)\n\n"
 
     for data_soal, key_puncak in daftar_tugas:
-        # 1. Hitung parameter kisi
         df_hasil = calculate_lattice_parameters(
             data_puncak=data_soal[key_puncak], wavelength=data_soal["lambda"]
         )
 
-        # 2. Tetap tampilkan ke terminal/konsol
         display_results(data_soal["material"], df_hasil)
 
-        # 3. Konversi ke string Markdown dan gabungkan
         laporan_md += export_to_markdown(data_soal["material"], df_hasil)
 
-    # 4. Tulis string gabungan ke file .md
     nama_file = "laporan_analisis_kisi.md"
     with open(nama_file, "w", encoding="utf-8") as file:
         file.write(laporan_md)

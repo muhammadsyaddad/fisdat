@@ -1,3 +1,4 @@
+from pathlib import Path
 import markdown
 from weasyprint import HTML
 
@@ -7,10 +8,8 @@ def convert_md_to_pdf(md_filename: str, pdf_filename: str):
     with open(md_filename, "r", encoding="utf-8") as f:
         md_text = f.read()
 
-    # Konversi Markdown ke HTML (aktifkan ekstensi tabel)
     html_body = markdown.markdown(md_text, extensions=["tables"])
 
-    # Tambahkan sedikit CSS agar tabel dan font rapi di kertas A4
     styled_html = f"""
     <!DOCTYPE html>
     <html>
@@ -35,13 +34,11 @@ def convert_md_to_pdf(md_filename: str, pdf_filename: str):
     print(f"PDF berhasil dibuat: {pdf_filename}")
 
 
-if __name__ == "__main__":
-    from pathlib import Path
 
-    # Naik 2 tingkat dari helper.py (src/lib -> src -> root)
-    ROOT_DIR = Path(__file__).resolve().parents[2]
+# Naik 2 tingkat dari helper.py (src/lib -> src -> root)
+ROOT_DIR = Path(__file__).resolve().parents[2]
 
-    md_path = ROOT_DIR / "laporan_analisis_kisi.md"
-    pdf_path = ROOT_DIR / "laporan_analisis_kisi.pdf"
+md_path = ROOT_DIR / "laporan_analisis_kisi.md"
+pdf_path = ROOT_DIR / "laporan_analisis_kisi.pdf"
 
-    convert_md_to_pdf(str(md_path), str(pdf_path))
+convert_md_to_pdf(str(md_path), str(pdf_path))
