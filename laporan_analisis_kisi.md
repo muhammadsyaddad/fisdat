@@ -1,8 +1,14 @@
 # Laporan Analisis Parameter Kisi XRD (Struktur Kubus)
 
 di analysis ke 1 - 3 itu pr , dan yang ke emapat itu quiz.
-denga menggunakan persamaan :
-parameter kisi =λ/2sinθ √ (h^2 + k^2 + l^2)
+
+- denga menggunakan persamaan :
+  parameter kisi =λ/2sinθ √(h^2 + k^2 + l^2)
+- perhitungan detail = https://github.com/muhammadsyaddad/fisdat
+- dengan d (Å) = λ/2sinθ
+- dan d (Å) adallah standar deviasi
+- dan a( Å ) = d (Å) * √(h^2 + k^2 + l^2)
+- kemudian a itu paremter kisi dan di avarage (rata rata)
 
 ## Analisis Struktur Kisi: CsCl
 
